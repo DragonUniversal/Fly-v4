@@ -1,5 +1,3 @@
--- Interface vermelha Desenvolvedor Vitor --
-
 local main = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local up = Instance.new("TextButton")
@@ -18,136 +16,183 @@ main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 main.ResetOnSpawn = false
 
--- Remove a função de arco-íris e substitui por borda vermelha fixa
-local function setRedOutline(instance)
+local function createRainbowOutline(instance)
+
     instance.BorderSizePixel = 1
-    instance.BorderColor3 = Color3.fromRGB(255, 0, 0) -- vermelho
+
+    spawn(function()
+        while true do
+            for hue = 0, 1, 0.01 do
+                instance.BorderColor3 = Color3.fromHSV(hue, 1, 1)
+                wait(0.05)
+            end
+        end
+    end)
 end
 
--- Remove a função de texto com cor arco-íris e define vermelho fixo
-local function setRedText(instance)
-    instance.TextColor3 = Color3.fromRGB(255, 0, 0) -- vermelho
+local createRainbowText = function(instance)
+    spawn(function()
+        local hue = 0
+        while wait(0.01) do
+            hue = hue + 1 / 255
+            if hue > 1 then hue = 0 end
+            instance.TextColor3 = Color3.fromHSV(hue, 1, 1)
+        end
+    end)
 end
 
+-- Frame principal
 Frame.Parent = main
-Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- preto
-Frame.BackgroundTransparency = 0.5 -- 50% transparência
-Frame.BorderColor3 = Color3.fromRGB(255, 0, 0) -- borda vermelha fixa
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Preto sólido
+Frame.BackgroundTransparency = 0 -- sem transparência
+Frame.BorderColor3 = Color3.fromRGB(255, 255, 255) -- contorno branco
 Frame.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
 Frame.Size = UDim2.new(0, 190, 0, 57)
-setRedOutline(Frame)
+Frame.BorderSizePixel = 1
 
+-- Botão subir
 up.Name = "subir"
 up.Parent = Frame
-up.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-up.BackgroundTransparency = 0.5
+up.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Preto sólido
+up.BackgroundTransparency = 0
 up.Size = UDim2.new(0, 44, 0, 28)
 up.Font = Enum.Font.SourceSans
 up.Text = "↑"
-setRedText(up)
-setRedOutline(up)
+up.TextColor3 = Color3.fromRGB(255, 255, 255) -- branco
+up.TextSize = 14
+up.BorderColor3 = Color3.fromRGB(255, 255, 255)
+up.BorderSizePixel = 1
 
+-- Botão descer
 down.Name = "descer"
 down.Parent = Frame
 down.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-down.BackgroundTransparency = 0.5
+down.BackgroundTransparency = 0
 down.Position = UDim2.new(0, 0, 0.491228074, 0)
 down.Size = UDim2.new(0, 44, 0, 28)
 down.Font = Enum.Font.SourceSans
 down.Text = "↓"
-setRedText(down)
-setRedOutline(down)
+down.TextColor3 = Color3.fromRGB(255, 255, 255)
+down.TextSize = 14
+down.BorderColor3 = Color3.fromRGB(255, 255, 255)
+down.BorderSizePixel = 1
 
+-- Botão ativar/desativar (Fly)
 onof.Name = "ativarDesativar"
 onof.Parent = Frame
 onof.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-onof.BackgroundTransparency = 0.5
+onof.BackgroundTransparency = 0
 onof.Position = UDim2.new(0.702823281, 0, 0.491228074, 0)
 onof.Size = UDim2.new(0, 56, 0, 28)
 onof.Font = Enum.Font.SourceSans
 onof.Text = "Fly"
-setRedText(onof)
-setRedOutline(onof)
+onof.TextColor3 = Color3.fromRGB(255, 255, 255)
+onof.TextSize = 14
+onof.BorderColor3 = Color3.fromRGB(255, 255, 255)
+onof.BorderSizePixel = 1
 
+-- Label Fly v3
 TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.BackgroundTransparency = 0.5
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
+TextLabel.BackgroundTransparency = 20 -- 50% transparency
 TextLabel.Position = UDim2.new(0.469327301, 0, 0, 0)
 TextLabel.Size = UDim2.new(0, 100, 0, 28)
 TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "Fly GUI v4"
-setRedText(TextLabel)
-setRedOutline(TextLabel)
+TextLabel.Text = "Fly Gui v5"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+createRainbowOutline(TextLabel)
 
+
+-- Botão +
 plus.Name = "mais"
 plus.Parent = Frame
 plus.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-plus.BackgroundTransparency = 0.5
+plus.BackgroundTransparency = 0
 plus.Position = UDim2.new(0.231578946, 0, 0, 0)
 plus.Size = UDim2.new(0, 45, 0, 28)
 plus.Font = Enum.Font.SourceSans
 plus.Text = "+"
-setRedText(plus)
-setRedOutline(plus)
+plus.TextColor3 = Color3.fromRGB(255, 255, 255)
+plus.TextScaled = true
+plus.TextSize = 14
+plus.TextWrapped = true
+plus.BorderColor3 = Color3.fromRGB(255, 255, 255)
+plus.BorderSizePixel = 1
 
+-- Label velocidade
 speed.Name = "subir"
 speed.Parent = Frame
 speed.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-speed.BackgroundTransparency = 0.5
+speed.BackgroundTransparency = 0
 speed.Position = UDim2.new(0.468421042, 0, 0.491228074, 0)
 speed.Size = UDim2.new(0, 44, 0, 28)
 speed.Font = Enum.Font.SourceSans
-speed.Text = "5"
-setRedText(speed)
-setRedOutline(speed)
+speed.Text = "10"
+speed.TextColor3 = Color3.fromRGB(255, 255, 255)
+speed.TextScaled = true
+speed.TextSize = 14
+speed.TextWrapped = true
+speed.BorderColor3 = Color3.fromRGB(255, 255, 255)
+speed.BorderSizePixel = 1
 
+-- Botão -
 mine.Name = "mine"
 mine.Parent = Frame
 mine.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-mine.BackgroundTransparency = 0.5
+mine.BackgroundTransparency = 0
 mine.Position = UDim2.new(0.231578946, 0, 0.491228074, 0)
 mine.Size = UDim2.new(0, 45, 0, 29)
 mine.Font = Enum.Font.SourceSans
 mine.Text = "-"
-setRedText(mine)
-setRedOutline(mine)
+mine.TextColor3 = Color3.fromRGB(255, 255, 255)
+mine.TextScaled = true
+mine.TextSize = 14
+mine.TextWrapped = true
+mine.BorderColor3 = Color3.fromRGB(255, 255, 255)
+mine.BorderSizePixel = 1
 
+-- Botão fechar
 closebutton.Name = "Fechar"
 closebutton.Parent = main.Frame
 closebutton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-closebutton.BackgroundTransparency = 0.5
+closebutton.BackgroundTransparency = 0
 closebutton.Font = Enum.Font.SourceSans
 closebutton.Size = UDim2.new(0, 45, 0, 28)
 closebutton.Text = "X"
 closebutton.TextSize = 20
 closebutton.Position = UDim2.new(0, 0, -1, 27)
-setRedText(closebutton)
-setRedOutline(closebutton)
+closebutton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+closebutton.BorderSizePixel = 1
 
+-- Botão minimizar
 mini.Name = "minimize"
 mini.Parent = main.Frame
 mini.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-mini.BackgroundTransparency = 0.5
+mini.BackgroundTransparency = 0
 mini.Font = Enum.Font.SourceSans
 mini.Size = UDim2.new(0, 45, 0, 28)
 mini.Text = "Fechar"
 mini.TextSize = 20
 mini.Position = UDim2.new(0, 44, -1, 27)
-setRedText(mini)
-setRedOutline(mini)
+mini.BorderColor3 = Color3.fromRGB(255, 255, 255)
+mini.BorderSizePixel = 1
 
+-- Botão abrir
 mini2.Name = "minimize2"
 mini2.Parent = main.Frame
 mini2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-mini2.BackgroundTransparency = 0.5
+mini2.BackgroundTransparency = 0
 mini2.Font = Enum.Font.SourceSans
 mini2.Size = UDim2.new(0, 45, 0, 28)
 mini2.Text = "Abrir"
 mini2.TextSize = 20
 mini2.Position = UDim2.new(0, 44, -1, 57)
 mini2.Visible = false
-setRedText(mini2)
-setRedOutline(mini2)
+mini2.BorderColor3 = Color3.fromRGB(255, 255, 255)
+mini2.BorderSizePixel = 1
 
 speeds = 10
 
@@ -159,8 +204,8 @@ local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 nowe = false
 
 game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "Fly GUI v4";
-	Text = "Dragon Menu";
+	Title = "Fly Gui v5";
+	Text = "by Dragon Menu";
 	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
 Duration = 5;
 
