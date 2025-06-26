@@ -300,7 +300,7 @@ setRedOutline(mini2)
 
 
 
-speeds = 10
+speeds = 6
 
 
 
